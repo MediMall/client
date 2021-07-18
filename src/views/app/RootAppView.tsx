@@ -15,7 +15,7 @@ import 'tasks/index'
 
 import 'styles'
 
-const splashTimeout = Number(process.env.REACT_APP_SPLASH_TIMEOUT) || 1500
+const splashTimeout = Number(process.env.REACT_APP_SPLASH_TIMEOUT) || 500
 
 const pageTransitionStyle = (
   splashScreenRendered: boolean

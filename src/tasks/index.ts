@@ -1,4 +1,7 @@
-import { Plugins, PushNotificationToken } from '@capacitor/core'
+import { App } from '@capacitor/app'
+import { Network } from '@capacitor/network'
+import { PushNotifications, Token } from '@capacitor/push-notifications'
+
 import { BackButtonEvent } from '@ionic/core'
 
 import { platformIsAndroid, platformIsMobile } from 'utils'
@@ -6,8 +9,6 @@ import { platformIsAndroid, platformIsMobile } from 'utils'
 import Routes from 'routes'
 import Requests, { endPoints } from 'requests'
 import eventsInstance, { syncData } from '../events'
-
-const { App, Network, PushNotifications } = Plugins
 
 platformIsMobile &&
   (function () {
@@ -30,12 +31,9 @@ function setPushNotificationListener() {
   PushNotifications.requestPermissions &&
     PushNotifications.requestPermissions()
       .then(() => {
-        PushNotifications.addListener(
-          'registration',
-          (token: PushNotificationToken) => {
-            sendPushNotificationTokenToServer(token.value)
-          }
-        )
+        PushNotifications.addListener('registration', (token: Token) => {
+          sendPushNotificationTokenToServer(token.value)
+        })
 
         PushNotifications.addListener('registrationError', error => {
           throw error
